@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import { projects, type Project } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+interface Props { project: Project }
+const { project } = Astro.props;
+const orderedProjects = [...projects].sort((a, b) => a.priority - b.priority);
+const index = orderedProjects.findIndex((item) => item.slug === project.slug);
+const previous = index > 0 ? orderedProjects[index - 1] : null;
+const next = index < orderedProjects.length - 1 ? orderedProjects[index + 1] : null;
+---
+<BaseLayout title={`${project.title} — Izhaan Mubeen`} description={project.summary}>
+  <Header />
+  <main id="main" class="case-study">
+    <section class="case-hero">
+      <span class="section-system-code" aria-hidden="true">SYS / CASE / {String(project.priority).padStart(2, '0')}</span>
+      <div class="shell">
+        <a class="back-link" href="/#projects">← Selected work</a>
+        <div class="case-title-grid">
+          <div>
+            <p class="eyebrow">CASE STUDY / {String(project.priority).padStart(2, '0')}</p>
+            <h1>{project.title}</h1>
+            <p class="case-lede">{project.summary}</p>
+          </div>
+          <div class="case-status-panel">
+            <div><span>Stage</span><strong>{project.stageLabel}</strong></div>
+            <div><span>Context</span><strong>{project.context.split(';')[0]}</strong></div>
+            <div>
+              <span>Repository</span>
+              {project.repository.state === 'public-verified' && project.repository.url
+                ? <a class="case-repo-status" href={project.repository.url} target="_blank" rel="noreferrer">Public · verified ↗</a>
+                : <strong>{project.repository.state === 'pending' ? 'Pending verification' : 'Not required'}</strong>}
+            </div>
+          </div>
+        </div>
+        <figure class="case-hero-media">
+          <img src={project.media} alt={project.mediaAlt} />
+          <figcaption>{project.mediaCaption}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="case-body section">
+      <div class="shell case-layout">
+        <aside class="case-sidebar" aria-label="Project metadata">
+          <div class="sidebar-block"><span>DISCIPLINES</span>{project.disciplines.map((item) => <p>{item}</p>)}</div>
+          <div class="sidebar-block"><span>TOOLS / TOPICS</span><ul class="tag-list">{project.tags.map((item) => <li>{item}</li>)}</ul></div>
+          <div class="sidebar-block"><span>OWNERSHIP</span><p>{project.ownership}</p></div>
+          <div class="sidebar-block sidebar-block--warning"><span>EVIDENCE NOTE</span><p>{project.evidenceNote}</p></div>
+          {project.repository.state === 'public-verified' && project.repository.url && (
+            <a class="button button--secondary case-repo-button" href={project.repository.url} target="_blank" rel="noreferrer">View GitHub repository <span aria-hidden="true">↗</span></a>
+          )}
+        </aside>
+        <article class="case-content">
+          <section><p class="case-index">01 / PROBLEM</p><h2>What the project is solving</h2><p>{project.problem}</p><div class="outcome-callout"><span>Factual outcome</span><p>{project.outcome}</p></div></section>
+          <section><p class="case-index">02 / CONSTRAINTS</p><h2>System boundaries</h2><ul class="case-list">{project.constraints.map((item) => <li>{item}</li>)}</ul></section>
+          <section><p class="case-index">03 / CONTRIBUTION</p><h2>{project.teamProject ? 'Documented team scope' : 'What I worked on'}</h2><ul class="case-list">{project.contribution.map((item) => <li>{item}</li>)}</ul></section>
+          <section><p class="case-index">04 / ARCHITECTURE</p><h2>How the system is structured</h2><ul class="case-list">{project.architecture.map((item) => <li>{item}</li>)}</ul></section>
+          <section><p class="case-index">05 / DECISIONS</p><h2>Engineering decisions</h2><div class="decision-grid">{project.decisions.map((decision, i) => <article><span>0{i + 1}</span><h3>{decision.title}</h3><p>{decision.body}</p></article>)}</div></section>
+          <section><p class="case-index">06 / IMPLEMENTATION</p><h2>Implementation evidence</h2><ul class="case-list">{project.implementation.map((item) => <li>{item}</li>)}</ul></section>
+          <section><p class="case-index">07 / VALIDATION</p><h2>Validation & limitations</h2><div class="validation-grid"><div><h3>What is supported</h3><ul class="case-list">{project.validation.map((item) => <li>{item}</li>)}</ul></div><div><h3>What is not yet established</h3><ul class="case-list">{project.limitations.map((item) => <li>{item}</li>)}</ul></div></div></section>
+          <section><p class="case-index">08 / NEXT STEP</p><h2>Next credible milestone</h2><p>{project.nextStep}</p>{project.repository.state === 'pending' && <div class="repo-gate"><strong>Repository gate active.</strong><span>This project remains local-only until the exact public repository is verified.</span></div>}</section>
+        </article>
+      </div>
+    </section>
+
+    <nav class="project-pagination shell" aria-label="Project case studies">
+      <div>{previous ? <><span>Previous</span><a href={`/projects/${previous.slug}/`}>← {previous.shortTitle}</a></> : <span></span>}</div>
+      <div class="project-pagination-next">{next ? <><span>Next</span><a href={`/projects/${next.slug}/`}>{next.shortTitle} →</a></> : <><span>Back</span><a href="/#projects">Selected work ↑</a></>}</div>
+    </nav>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><span>Izhaan Mubeen</span><span>Case study · local development build</span><a href="/#contact">Contact ↗</a></div></footer>
+</BaseLayout>

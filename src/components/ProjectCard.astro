@@ -1,0 +1,27 @@
+---
+import type { Project } from '../data/projects';
+interface Props { project: Project; lead?: boolean; index?: number }
+const { project, lead = false, index = 0 } = Astro.props;
+const filterKeys = project.disciplines.map((item) => item.toLowerCase().replace(/\s*&\s*/g, '-').replace(/\s+/g, '-')).join(' ');
+const accents = ['92, 225, 230', '102, 124, 255', '181, 108, 255', '255, 79, 216'];
+const accent = accents[index % accents.length];
+---
+<article class:list={['project-card', lead && 'project-card--lead']} data-project data-disciplines={filterKeys} style={`--card-accent: ${accent}`}>
+  <a class="project-media" href={`/projects/${project.slug}/`} aria-label={`Read ${project.title} case study`}>
+    <img src={project.media} alt={project.mediaAlt} loading={lead ? 'eager' : 'lazy'} decoding="async" />
+    <span class="project-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+    <span class:list={['stage-badge', project.stage === 'in-development' && 'stage-badge--progress']}>{project.stageLabel}</span>
+  </a>
+  <div class="project-card-body">
+    <div class="project-kicker">{project.disciplines.join(' / ')}</div>
+    <h3><a href={`/projects/${project.slug}/`}>{project.title}</a></h3>
+    <p>{project.summary}</p>
+    <ul class="tag-list" aria-label="Tools and topics">
+      {project.tags.slice(0, lead ? 5 : 4).map((tag) => <li>{tag}</li>)}
+    </ul>
+    {lead && <p class="project-outcome">{project.outcome}</p>}
+    <a class="project-link" href={`/projects/${project.slug}/`}>
+      <span>View case study</span><span class="project-link-arrow" aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>

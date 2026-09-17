@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Sign Language Detector processing architecture</title>
+  <desc id="desc">Technical diagram showing camera or video input, MediaPipe hand landmarks, rule-based gesture mapping, sentence stability filtering and text-to-speech output.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#070b12"/>
+      <stop offset="1" stop-color="#020409"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#5ce1e6"/>
+      <stop offset="1" stop-color="#667cff"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#5ce1e6" stroke-opacity=".055"/>
+    </pattern>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <circle cx="1200" cy="155" r="360" fill="#667cff" opacity=".055"/>
+  <circle cx="280" cy="900" r="430" fill="#5ce1e6" opacity=".04"/>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="92" y="98" fill="#5ce1e6" font-size="20" font-weight="700" letter-spacing="5">COMPUTER VISION / PUBLIC REPOSITORY</text>
+    <text x="92" y="166" fill="#f3f8ff" font-size="55" font-weight="750">Sign Language Detector</text>
+    <text x="94" y="211" fill="#90a5c2" font-size="22">MediaPipe landmark tracking → deterministic gesture map → spoken sentence</text>
+
+    <g transform="translate(92 288)">
+      <rect width="360" height="500" rx="26" fill="#09101a" stroke="#5ce1e6" stroke-opacity=".28"/>
+      <rect x="24" y="24" width="312" height="42" rx="12" fill="#5ce1e6" fill-opacity=".07" stroke="#5ce1e6" stroke-opacity=".17"/>
+      <circle cx="48" cy="45" r="6" fill="#5ce1e6" filter="url(#glow)"/>
+      <text x="68" y="52" fill="#b5c6dc" font-size="15" font-weight="700" letter-spacing="2">LANDMARK VIEW</text>
+
+      <g transform="translate(56 100)" fill="none" stroke="#5ce1e6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M128 330L105 265 90 195 80 118M105 265L145 190 158 96M105 265L192 195 224 116M105 265L228 233 272 177M128 330L186 297 265 278" stroke-opacity=".52"/>
+        <path d="M105 265L128 330 186 297M105 265L145 190 192 195 228 233 265 278" stroke="#667cff" stroke-opacity=".64"/>
+      </g>
+      <g transform="translate(56 100)" fill="#07121a" stroke="#a7f6ff" stroke-width="3">
+        <circle cx="128" cy="330" r="9"/><circle cx="105" cy="265" r="9"/><circle cx="90" cy="195" r="8"/><circle cx="80" cy="118" r="8"/>
+        <circle cx="145" cy="190" r="8"/><circle cx="158" cy="96" r="8"/><circle cx="192" cy="195" r="8"/><circle cx="224" cy="116" r="8"/>
+        <circle cx="228" cy="233" r="8"/><circle cx="272" cy="177" r="8"/><circle cx="186" cy="297" r="8"/><circle cx="265" cy="278" r="8"/>
+      </g>
+      <text x="180" y="470" text-anchor="middle" fill="#697d9d" font-size="15" font-weight="700" letter-spacing="2">21-POINT HAND MODEL</text>
+    </g>
+
+    <g transform="translate(505 324)">
+      <path d="M-30 210H15" stroke="#5ce1e6" stroke-width="2" stroke-dasharray="6 8"/>
+      <path d="M1 197L16 210 1 223" fill="none" stroke="#5ce1e6" stroke-width="2"/>
+
+      <rect x="16" width="438" height="180" rx="22" fill="#0a101c" stroke="#667cff" stroke-opacity=".4"/>
+      <text x="48" y="46" fill="#667cff" font-size="15" font-weight="700" letter-spacing="3">01 / INPUT</text>
+      <text x="48" y="88" fill="#f3f8ff" font-size="27" font-weight="700">Camera or uploaded video</text>
+      <text x="48" y="126" fill="#90a5c2" font-size="18">OpenCV captures and normalizes each frame.</text>
+
+      <path d="M235 181V226" stroke="#5ce1e6" stroke-width="2" stroke-dasharray="6 8"/>
+      <path d="M222 212L235 227 248 212" fill="none" stroke="#5ce1e6" stroke-width="2"/>
+      <rect x="16" y="227" width="438" height="180" rx="22" fill="#0a101c" stroke="#5ce1e6" stroke-opacity=".38"/>
+      <text x="48" y="273" fill="#5ce1e6" font-size="15" font-weight="700" letter-spacing="3">02 / INTERPRET</text>
+      <text x="48" y="315" fill="#f3f8ff" font-size="27" font-weight="700">Finger-state gesture rules</text>
+      <text x="48" y="353" fill="#90a5c2" font-size="18">Landmark positions map to eight phrases.</text>
+
+      <path d="M235 408V453" stroke="#5ce1e6" stroke-width="2" stroke-dasharray="6 8"/>
+      <path d="M222 439L235 454 248 439" fill="none" stroke="#5ce1e6" stroke-width="2"/>
+      <rect x="16" y="454" width="438" height="180" rx="22" fill="#0a101c" stroke="#b56cff" stroke-opacity=".4"/>
+      <text x="48" y="500" fill="#b56cff" font-size="15" font-weight="700" letter-spacing="3">03 / OUTPUT</text>
+      <text x="48" y="542" fill="#f3f8ff" font-size="27" font-weight="700">Stable sentence + speech</text>
+      <text x="48" y="580" fill="#90a5c2" font-size="18">Thresholding reduces flicker before TTS.</text>
+    </g>
+
+    <g transform="translate(1030 288)">
+      <rect width="478" height="500" rx="26" fill="#09101a" stroke="#b56cff" stroke-opacity=".25"/>
+      <text x="34" y="52" fill="#b56cff" font-size="15" font-weight="700" letter-spacing="3">VERIFIED STACK</text>
+      <g font-size="18" font-weight="650">
+        <rect x="34" y="83" width="194" height="58" rx="14" fill="#5ce1e6" fill-opacity=".07" stroke="#5ce1e6" stroke-opacity=".26"/><text x="54" y="119" fill="#c8f9ff">Python + OpenCV</text>
+        <rect x="246" y="83" width="198" height="58" rx="14" fill="#667cff" fill-opacity=".08" stroke="#667cff" stroke-opacity=".28"/><text x="266" y="119" fill="#d7dcff">MediaPipe Hands</text>
+        <rect x="34" y="159" width="194" height="58" rx="14" fill="#b56cff" fill-opacity=".07" stroke="#b56cff" stroke-opacity=".25"/><text x="54" y="195" fill="#ead8ff">Tkinter GUI</text>
+        <rect x="246" y="159" width="198" height="58" rx="14" fill="#ff4fd8" fill-opacity=".055" stroke="#ff4fd8" stroke-opacity=".22"/><text x="266" y="195" fill="#ffd4f5">pyttsx3 TTS</text>
+      </g>
+
+      <path d="M34 256H444" stroke="#8aa0bd" stroke-opacity=".18"/>
+      <text x="34" y="301" fill="#697d9d" font-size="14" font-weight="700" letter-spacing="3">SUPPORTED OUTPUTS</text>
+      <text x="34" y="350" fill="#f3f8ff" font-size="25" font-weight="700">HI  ·  WAIT  ·  GOOD</text>
+      <text x="34" y="390" fill="#f3f8ff" font-size="25" font-weight="700">NO  ·  THUMBS UP</text>
+      <text x="34" y="430" fill="#f3f8ff" font-size="25" font-weight="700">WHAT'S UP  ·  FOUR  ·  ROCK IT</text>
+      <circle cx="42" cy="468" r="6" fill="#5ce1e6" filter="url(#glow)"/>
+      <text x="60" y="474" fill="#90a5c2" font-size="15">Repository inspected · main branch</text>
+    </g>
+
+    <rect x="92" y="860" width="1416" height="64" rx="16" fill="#5ce1e6" fill-opacity=".035" stroke="#5ce1e6" stroke-opacity=".14"/>
+    <text x="124" y="900" fill="#8ea5c2" font-size="16" letter-spacing="1">RULE-BASED PROTOTYPE</text>
+    <text x="1474" y="900" text-anchor="end" fill="url(#accent)" font-size="16" font-weight="700" letter-spacing="2">PYTHON / MEDIAPIPE / HCI</text>
+  </g>
+</svg>

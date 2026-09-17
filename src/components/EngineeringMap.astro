@@ -1,0 +1,262 @@
+<div class="engineering-map engineering-map--robot" aria-hidden="true">
+  <div class="map-glow robot-scene-glow"></div>
+
+  <svg class="robot-scene robot-scene--vista" viewBox="0 0 760 620" role="presentation">
+    <defs>
+      <linearGradient id="vistaWhite" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset=".33" stop-color="#edf4fb" />
+        <stop offset=".72" stop-color="#c4d0dd" />
+        <stop offset="1" stop-color="#8392a3" />
+      </linearGradient>
+      <linearGradient id="vistaWhiteSoft" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fdfefe" />
+        <stop offset=".5" stop-color="#dce7f2" />
+        <stop offset="1" stop-color="#9aa8b9" />
+      </linearGradient>
+      <linearGradient id="vistaBlack" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#202a37" />
+        <stop offset=".42" stop-color="#050b12" />
+        <stop offset="1" stop-color="#1e2733" />
+      </linearGradient>
+      <linearGradient id="vistaBlue" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#95f7ff" />
+        <stop offset=".55" stop-color="#5ce1e6" />
+        <stop offset="1" stop-color="#6c8eff" />
+      </linearGradient>
+      <linearGradient id="vistaBlueVertical" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#7ff1ff" />
+        <stop offset="1" stop-color="#326db6" />
+      </linearGradient>
+      <radialGradient id="vistaHalo" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#5ce1e6" stop-opacity=".22" />
+        <stop offset=".48" stop-color="#5ce1e6" stop-opacity=".08" />
+        <stop offset="1" stop-color="#5ce1e6" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="vistaScreenGlow" cx="50%" cy="16%" r="82%">
+        <stop offset="0" stop-color="#6bd8ff" stop-opacity=".55" />
+        <stop offset=".28" stop-color="#1c4d96" stop-opacity=".35" />
+        <stop offset="1" stop-color="#040b14" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="vistaPlatformGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#95f7ff" stop-opacity=".35" />
+        <stop offset=".5" stop-color="#5ce1e6" stop-opacity=".16" />
+        <stop offset="1" stop-color="#5ce1e6" stop-opacity="0" />
+      </radialGradient>
+      <filter id="vistaDropShadow" x="-40%" y="-40%" width="180%" height="190%">
+        <feDropShadow dx="0" dy="24" stdDeviation="18" flood-color="#000713" flood-opacity=".8" />
+      </filter>
+      <filter id="vistaGlow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="5" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <filter id="vistaGlowSoft" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="11" />
+      </filter>
+    </defs>
+
+    <g class="vista-backdrop">
+      <circle cx="404" cy="312" r="224" fill="url(#vistaHalo)" />
+      <path d="M70 98H690M70 172H690M70 246H690M70 320H690M70 394H690M70 468H690M70 542H690" />
+      <path d="M120 62V560M214 62V560M308 62V560M402 62V560M496 62V560M590 62V560" />
+    </g>
+
+    <g class="vista-hud vista-hud--outer">
+      <ellipse cx="404" cy="312" rx="254" ry="206" />
+      <ellipse cx="404" cy="312" rx="208" ry="248" transform="rotate(24 404 312)" />
+      <ellipse cx="404" cy="312" rx="286" ry="132" transform="rotate(-17 404 312)" />
+    </g>
+    <g class="vista-hud vista-hud--inner">
+      <circle cx="404" cy="312" r="152" />
+      <circle cx="404" cy="312" r="188" />
+    </g>
+
+    <g class="vista-hud-marks">
+      <path d="M404 38v28M390 52h28M404 560v24M390 572h28M106 312h28M120 298v28M702 312h-28M688 298v28" />
+      <path d="M154 138h72M154 138v26M584 138h-70M584 138v26M154 492h72M154 492v-26M584 492h-70M584 492v-26" />
+    </g>
+
+    <g class="vista-beacon">
+      <circle cx="404" cy="154" r="68" />
+      <circle cx="404" cy="154" r="44" />
+    </g>
+
+    <g class="vista-robot-track">
+      <g class="vista-robot-motion" filter="url(#vistaDropShadow)">
+        <ellipse class="vista-platform-shadow" cx="402" cy="560" rx="132" ry="30" />
+
+        <g class="vista-robot-arm vista-robot-arm--left">
+          <circle cx="272" cy="304" r="34" fill="url(#vistaBlack)" />
+          <circle cx="272" cy="304" r="19" fill="none" stroke="url(#vistaBlue)" stroke-width="3" opacity=".72" />
+          <path d="M246 315c-41 18-76 48-100 92l25 17c22-31 51-56 92-77z" fill="url(#vistaWhiteSoft)" />
+          <path d="M170 404c-17 8-31 19-44 34l16 16c16-10 30-20 42-33z" fill="url(#vistaBlack)" />
+          <circle cx="178" cy="421" r="12" fill="#07111c" stroke="url(#vistaBlue)" stroke-width="2.5" />
+        </g>
+
+        <g class="vista-robot-arm vista-robot-arm--right">
+          <circle cx="536" cy="304" r="34" fill="url(#vistaBlack)" />
+          <circle cx="536" cy="304" r="19" fill="none" stroke="url(#vistaBlue)" stroke-width="3" opacity=".72" />
+          <path d="M560 294c36 10 69 31 96 62l-19 22c-26-23-54-40-87-51z" fill="url(#vistaWhiteSoft)" />
+          <path d="M633 359c16 8 29 18 40 31l-14 19c-14-10-26-18-38-28z" fill="url(#vistaBlack)" />
+          <circle cx="645" cy="381" r="12" fill="#07111c" stroke="url(#vistaBlue)" stroke-width="2.5" />
+        </g>
+
+        <g class="vista-body-shell">
+          <path d="M317 232c17-31 45-50 83-55h18c39 5 68 24 84 55l23 247c2 24-5 45-19 62-20 23-45 34-76 35h-55c-31-1-56-12-76-35-15-18-22-39-19-62z" fill="url(#vistaWhite)" />
+          <path d="M334 250c17-26 40-39 71-43h11c30 4 54 17 71 43l18 214c2 18-3 35-15 49-15 17-35 26-59 26h-42c-24 0-44-9-59-26-12-14-17-31-15-49z" fill="url(#vistaBlack)" opacity=".94" />
+          <path d="M319 228c14-22 34-37 61-44 0 0 52-9 95 10 22 10 39 25 52 47l-6 40c-31-23-71-35-117-35-46 0-83 10-111 30z" fill="rgba(255,255,255,.16)" />
+          <path d="M319 500c22 22 47 33 75 34h41c30-1 56-12 77-34l-7 35c-4 18-13 31-28 39-12 7-25 10-39 10h-66c-14 0-27-3-39-10-15-9-24-22-28-39z" fill="url(#vistaWhiteSoft)" />
+
+          <path d="M337 490c18 20 39 29 66 31h28c27-2 49-11 67-31" fill="none" stroke="#d6e0ea" stroke-width="3" opacity=".42" />
+          <path d="M332 515c20 18 43 28 72 31h31c30-3 54-13 75-31" fill="none" stroke="url(#vistaBlue)" stroke-width="4.5" stroke-linecap="round" filter="url(#vistaGlow)" />
+        </g>
+
+        <g class="vista-screen-frame">
+          <rect x="350" y="252" width="110" height="172" rx="36" fill="url(#vistaWhiteSoft)" />
+          <rect x="361" y="263" width="88" height="149" rx="24" fill="url(#vistaBlack)" />
+          <rect x="366" y="268" width="78" height="139" rx="21" fill="#061321" />
+          <rect x="368" y="270" width="74" height="135" rx="20" fill="url(#vistaScreenGlow)" opacity=".75" />
+          <text x="405" y="293" text-anchor="middle" class="vista-screen-title">GUIDE</text>
+          <text x="405" y="310" text-anchor="middle" class="vista-screen-subtitle">How can I help?</text>
+          <g class="vista-screen-ui">
+            <rect x="377" y="324" width="56" height="17" rx="8.5" />
+            <rect x="377" y="347" width="56" height="17" rx="8.5" />
+            <rect x="377" y="370" width="56" height="17" rx="8.5" />
+            <rect x="389" y="397" width="32" height="7" rx="3.5" class="vista-screen-dock" />
+          </g>
+          <circle cx="405" cy="420" r="6" fill="#0c1929" stroke="rgba(255,255,255,.18)" />
+        </g>
+
+        <g class="vista-neck-track">
+          <g class="vista-neck-motion">
+            <g class="vista-neck">
+              <ellipse cx="405" cy="190" rx="34" ry="12" fill="#02070d" />
+              <rect x="386" y="152" width="38" height="42" rx="16" fill="url(#vistaBlack)" />
+              <path d="M393 159v28M405 157v30M417 160v27" stroke="#56697c" stroke-width="5" stroke-linecap="round" />
+              <path d="M390 176h30" stroke="url(#vistaBlue)" stroke-width="1.8" opacity=".35" />
+            </g>
+
+            <g class="vista-head-track">
+              <g class="vista-head-motion">
+                <g class="vista-head-shell">
+                  <rect x="338" y="80" width="134" height="98" rx="36" fill="url(#vistaWhite)" />
+                  <rect x="350" y="91" width="110" height="76" rx="25" fill="url(#vistaBlack)" />
+                  <rect x="354" y="95" width="102" height="68" rx="22" fill="#050b14" />
+                  <rect x="373" y="101" width="62" height="10" rx="5" fill="#252f3c" />
+                  <circle cx="387" cy="106" r="2.8" fill="#0b1622" stroke="rgba(255,255,255,.2)" />
+                  <circle cx="397" cy="106" r="2.8" fill="#0b1622" stroke="rgba(255,255,255,.2)" />
+                  <circle cx="407" cy="106" r="2.8" fill="#0b1622" stroke="rgba(255,255,255,.2)" />
+                  <circle cx="417" cy="106" r="2.8" fill="#0b1622" stroke="rgba(255,255,255,.2)" />
+
+                  <circle cx="381" cy="132" r="15" fill="none" stroke="url(#vistaBlue)" stroke-width="4" filter="url(#vistaGlow)" />
+                  <circle cx="429" cy="132" r="15" fill="none" stroke="url(#vistaBlue)" stroke-width="4" filter="url(#vistaGlow)" />
+                  <circle cx="381" cy="132" r="4" fill="#07111d" />
+                  <circle cx="429" cy="132" r="4" fill="#07111d" />
+                  <path d="M393 149c7 6 18 6 25 0" fill="none" stroke="url(#vistaBlue)" stroke-width="3" stroke-linecap="round" filter="url(#vistaGlow)" />
+                </g>
+                <g class="vista-head-ears">
+                  <ellipse cx="333" cy="128" rx="20" ry="26" fill="url(#vistaBlack)" />
+                  <circle cx="333" cy="128" r="12" fill="none" stroke="url(#vistaBlue)" stroke-width="4" filter="url(#vistaGlow)" />
+                  <ellipse cx="477" cy="128" rx="20" ry="26" fill="url(#vistaBlack)" />
+                  <circle cx="477" cy="128" r="12" fill="none" stroke="url(#vistaBlue)" stroke-width="4" filter="url(#vistaGlow)" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+
+        <g class="vista-platform">
+          <ellipse cx="404" cy="560" rx="120" ry="16" fill="none" stroke="url(#vistaBlue)" stroke-width="2" opacity=".52" />
+          <ellipse cx="404" cy="560" rx="168" ry="24" fill="none" stroke="rgba(92,225,230,.28)" stroke-width="2" opacity=".35" />
+          <ellipse cx="404" cy="560" rx="86" ry="9" fill="url(#vistaPlatformGlow)" filter="url(#vistaGlowSoft)" />
+        </g>
+      </g>
+    </g>
+
+    <g class="vista-labels">
+      <text x="72" y="170">MOBILE GUIDE UNIT</text>
+      <text x="72" y="184">HUMAN-ROBOT INTERACTION</text>
+      <path d="M72 196h120l74 48" />
+
+      <text x="564" y="152">AI SENSOR HEAD</text>
+      <text x="564" y="166">EXPRESSIVE LED INTERFACE</text>
+      <path d="M556 178h74l-116-42" />
+
+      <text x="560" y="436">13.3" TOUCH DISPLAY</text>
+      <text x="560" y="450">FRIENDLY ASSISTANCE UI</text>
+      <path d="M552 460h68l-128-82" />
+    </g>
+  </svg>
+
+  <div class="map-readout map-readout--top"><span>MODE</span><strong>SERVICE / EMBEDDED ROBOTICS</strong></div>
+  <div class="robot-side-readout robot-side-readout--vista">
+    <span>SMART</span>
+    <span>FRIENDLY</span>
+    <span>HELPFUL</span>
+    <span>MOBILE</span>
+  </div>
+  <div class="map-readout map-readout--bottom"><span>INTERACTIVE SERVICE ROBOT</span><strong>POINTER-RESPONSIVE HERO MODEL</strong></div>
+</div>
+
+<script is:inline>
+  (() => {
+    if (typeof window === 'undefined') return;
+
+    const setupVistaHero = () => {
+      const cards = document.querySelectorAll('.engineering-map--robot');
+      if (!cards.length) return;
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const reset = (card) => {
+        card.style.setProperty('--robot-pan-x', '0px');
+        card.style.setProperty('--robot-pan-y', '0px');
+        card.style.setProperty('--robot-head-x', '0px');
+        card.style.setProperty('--robot-head-y', '0px');
+        card.style.setProperty('--robot-arm-left-x', '0px');
+        card.style.setProperty('--robot-arm-left-y', '0px');
+        card.style.setProperty('--robot-arm-right-x', '0px');
+        card.style.setProperty('--robot-arm-right-y', '0px');
+        card.style.setProperty('--robot-glow-x', '0px');
+        card.style.setProperty('--robot-glow-y', '0px');
+      };
+
+      cards.forEach((card) => {
+        if (card.dataset.vistaInteractiveReady === 'true') return;
+        card.dataset.vistaInteractiveReady = 'true';
+        reset(card);
+
+        if (reducedMotion.matches) return;
+
+        const onPointerMove = (event) => {
+          const rect = card.getBoundingClientRect();
+          const px = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          const py = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+
+          card.style.setProperty('--robot-pan-x', `${(px * 18).toFixed(2)}px`);
+          card.style.setProperty('--robot-pan-y', `${(py * 14).toFixed(2)}px`);
+          card.style.setProperty('--robot-head-x', `${(px * 7).toFixed(2)}px`);
+          card.style.setProperty('--robot-head-y', `${(py * 5).toFixed(2)}px`);
+          card.style.setProperty('--robot-arm-left-x', `${(-px * 10).toFixed(2)}px`);
+          card.style.setProperty('--robot-arm-left-y', `${(-py * 6).toFixed(2)}px`);
+          card.style.setProperty('--robot-arm-right-x', `${(px * 10).toFixed(2)}px`);
+          card.style.setProperty('--robot-arm-right-y', `${(-py * 8).toFixed(2)}px`);
+          card.style.setProperty('--robot-glow-x', `${(px * 24).toFixed(2)}px`);
+          card.style.setProperty('--robot-glow-y', `${(py * 18).toFixed(2)}px`);
+        };
+
+        card.addEventListener('pointermove', onPointerMove);
+        card.addEventListener('pointerleave', () => reset(card));
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupVistaHero, { once: true });
+    } else {
+      setupVistaHero();
+    }
+  })();
+</script>

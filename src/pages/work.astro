@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+const items = [
+  { id: 'sand-simulation', title: 'Sand Simulation', label: 'REQUIRED REPOSITORY · PENDING', body: 'Tilt-driven particle simulation. A public, nonempty GitHub repository is mandatory before any hosted portfolio release, even if this range piece is hidden from the homepage.' },
+  { id: 'cad-range', title: 'CAD Mechanism Studies', label: 'GALLERY · ASSETS PENDING', body: 'Adjustable Wrench, Bench Vise, Planetary Gearbox, Enclosures, Scissor Lift and sheet-metal studies. Each item needs an authentic render, modeling focus and attribution.' },
+  { id: 'mission-control', title: 'Mission Control Tracker', label: 'PERSONAL · EVIDENCE PENDING', body: 'Self-built HTML tracker. Use only a redacted or fictional-data screenshot and describe implemented tracking behavior once verified.' }
+];
+---
+<BaseLayout title="Range Work — Izhaan Mubeen" description="Additional CAD, simulation and software range work for Izhaan Mubeen.">
+  <Header />
+  <main id="main" class="case-study">
+    <section class="case-hero">
+      <span class="section-system-code" aria-hidden="true">SYS / RANGE / LAB</span>
+      <div class="shell">
+        <a class="back-link" href="/">← Home</a>
+        <div class="section-heading">
+          <p class="eyebrow">OPTIONAL RANGE / LOCAL ONLY</p>
+          <h1 style="margin:14px 0 18px;font-size:clamp(2.7rem,5vw,4.5rem);line-height:1.04;letter-spacing:-.048em">Experimental work beyond the core case studies.</h1>
+          <p class="case-lede">A transparent project queue for simulation, CAD and interface work that is still gathering publishable evidence.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell credential-grid">
+        {items.map((item, i) => <article id={item.id} class="credential-card"><span>0{i + 1} / {item.label}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><span>Izhaan Mubeen</span><span>Range work · local development build</span><a href="/#projects">Featured projects ↑</a></div></footer>
+</BaseLayout>

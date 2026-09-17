@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="t d">
+<title id="t">Weather dashboard placeholder</title><desc id="d">Neutral technical placeholder. Replace with authentic project evidence before publication.</desc>
+<defs><pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#23354f" stroke-width="1"/></pattern><radialGradient id="glow"><stop stop-color="#59b8ff" stop-opacity=".13"/><stop offset="1" stop-color="#59b8ff" stop-opacity="0"/></radialGradient></defs>
+<rect width="1600" height="1000" fill="#08101d"/><rect width="1600" height="1000" fill="url(#grid)" opacity=".55"/><circle cx="1180" cy="240" r="460" fill="url(#glow)"/>
+<g fill="none" stroke="#59b8ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="240" y="180" width="1120" height="650" rx="28"/><path d="M240 290h1120M720 290v540"/><circle cx="480" cy="465" r="100"/><path d="M480 300v-55M480 685v-55M315 465h-55M700 465h-55M363 348l-40-40M637 622l40 40M363 582l-40 40M637 308l40-40"/><path d="M790 660l110-120 95 70 120-180 160 110"/><path d="M790 700h470M790 380h250M790 430h370"/></g>
+<g font-family="ui-monospace, SFMono-Regular, Menlo, monospace"><text x="72" y="92" fill="#59b8ff" font-size="26" letter-spacing="4">TECHNICAL PLACEHOLDER</text><text x="72" y="132" fill="#88a0c0" font-size="20">REPLACE WITH AUTHENTIC PROJECT ASSET BEFORE RELEASE</text><text x="72" y="930" fill="#657d9d" font-size="18">IZHAAN MUBEEN / LOCAL DEVELOPMENT BUILD</text></g>
+</svg>

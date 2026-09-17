@@ -1,0 +1,761 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import EngineeringMap from '../components/EngineeringMap.astro';
+import { projects } from '../data/projects';
+
+const orderedProjects = [...projects].sort((a, b) => a.priority - b.priority);
+const skills = [
+  {
+    code: 'MECH',
+    layer: '01',
+    title: 'Mechanical Design',
+    description: 'Mechanisms, assemblies and drawings developed around motion, interfaces and manufacturable geometry.',
+    tools: ['SOLIDWORKS', 'Assemblies', 'Drawings', 'Mechanism Design', 'Motion Studies', 'Structural Simulation'],
+    href: '/projects/vista-mobile-service-robot/'
+  },
+  {
+    code: 'CTRL',
+    layer: '02',
+    title: 'Control & Simulation',
+    description: 'Physics-based models and control logic used to understand system behavior before hardware decisions are locked in.',
+    tools: ['MATLAB', 'Simulink', 'Simscape Multibody', 'Robot Dynamics', 'Compressive Sensing', 'ADMM'],
+    href: '/projects/differential-drive-modeling-control/'
+  },
+  {
+    code: 'FW',
+    layer: '03',
+    title: 'Embedded / Firmware',
+    description: 'Low-level machine control with explicit states, timing, serial communication and peripheral behavior.',
+    tools: ['Bare-metal C', 'TM4C123', 'UART', 'Keil', 'Proteus', 'PySerial'],
+    href: '/projects/automated-wire-cutting-machine/'
+  },
+  {
+    code: 'ROB',
+    layer: '04',
+    title: 'Robotics Integration',
+    description: 'Robot geometry, wheel actuation and system integration across simulation, kinematics and software interfaces.',
+    tools: ['ROS2', 'URDF', 'Differential Drive', 'Simscape Multibody', 'Robot Dynamics', 'Wheel Actuation'],
+    href: '/projects/differential-drive-modeling-control/'
+  },
+  {
+    code: 'CV',
+    layer: '05',
+    title: 'Computer Vision',
+    description: 'Live visual input transformed into practical interaction using landmark detection and computer-vision pipelines.',
+    tools: ['Python', 'OpenCV', 'MediaPipe', 'Tkinter', 'Video Processing', 'Text-to-Speech'],
+    href: '/projects/sign-language-detector/'
+  },
+  {
+    code: 'SW',
+    layer: '06',
+    title: 'Engineering Software',
+    description: 'Software that connects hardware data, analysis and interfaces into inspectable engineering workflows.',
+    tools: ['Python', 'Streamlit', 'Matplotlib', 'PySerial', 'GitHub Actions', 'HTML / CSS / JS'],
+    href: '/projects/embedded-python-data-pipeline/'
+  }
+];
+
+const matricPercentage = ((1062 / 1100) * 100).toFixed(2);
+
+const education = [
+  {
+    period: '2024 — Present',
+    stage: 'Undergraduate',
+    title: 'B.Sc. Mechatronics & Control Engineering',
+    place: 'University of Engineering and Technology, Lahore',
+    note: 'Developing multidisciplinary engineering depth across mechanisms, robotics, dynamic systems, embedded control and engineering software.',
+    subjects: ['Robotics', 'Control Systems', 'Signal Processing', 'Embedded Systems', 'Machine Design'],
+    result: [
+      { label: 'CURRENT CGPA', value: '3.34 / 4.00' },
+      { label: 'STATUS', value: 'In progress' }
+    ]
+  },
+  {
+    period: '2022 — 2024',
+    stage: 'Intermediate',
+    title: 'Intermediate · Pre-Engineering',
+    place: 'Government College University, Lahore',
+    note: 'Built the mathematics and physical-science foundation that now supports my engineering coursework and project work.',
+    subjects: ['Mathematics', 'Physics', 'Chemistry'],
+    result: [
+      { label: 'PERCENTAGE', value: '82%' },
+      { label: 'GRADE', value: 'A' }
+    ]
+  },
+  {
+    period: 'Completed 2022',
+    stage: 'Matriculation',
+    title: 'Matriculation · Science',
+    note: 'Completed secondary education in the Science group with a strong quantitative foundation.',
+    subjects: ['Mathematics', 'Physics', 'Chemistry', 'Biology'],
+    result: [
+      { label: 'MARKS', value: '1062 / 1100' },
+      { label: 'PERCENTAGE', value: `${matricPercentage}%` }
+    ]
+  }
+];
+
+const credentials = [
+  { issuer: 'MATHWORKS', title: 'MATLAB Onramp' },
+  { issuer: 'DATACAMP', title: 'Matplotlib' },
+  { issuer: 'DATACAMP', title: 'Working with the OpenAI API' }
+];
+
+const projectCount = projects.length;
+const technologyCount = new Set([
+  ...skills.flatMap((skill) => skill.tools),
+  ...projects.flatMap((project) => project.tags)
+]).size;
+const disciplineCount = new Set(projects.flatMap((project) => project.disciplines)).size;
+const credentialCount = credentials.length;
+
+const aboutStats = [
+  { value: projectCount, label: 'SELECTED PROJECTS', note: 'Across robotics, simulation, embedded systems and software.' },
+  { value: technologyCount, label: 'TOOLS & TECHNOLOGIES', note: 'Unique tools and technical topics used across the portfolio.' },
+  { value: disciplineCount, label: 'ENGINEERING DOMAINS', note: 'Core disciplines reflected in my work and technical training.' },
+  { value: credentialCount, label: 'CREDENTIALS', note: 'Current certifications and structured learning credentials.' }
+];
+
+const heroProof = [
+  { code: 'PROJECTS', value: String(projectCount).padStart(2, '0'), title: 'Selected engineering projects', detail: 'Mechanical · embedded · simulation' },
+  { code: 'FIRMWARE', value: 'TM4C123', title: 'Bare-metal embedded control', detail: 'C · UART · state logic' },
+  { code: 'TOOLCHAIN', value: 'CAD → MCU', title: 'Cross-domain engineering stack', detail: 'SOLIDWORKS · Simscape · URDF' }
+];
+
+const labProjects = [
+  {
+    id: 'sand-simulation',
+    code: 'EXPERIMENTAL / SIM',
+    title: 'Sand Simulation',
+    stage: 'Repository pending',
+    summary: 'A tilt-driven particle simulation retained as range work until its public repository and implementation evidence are verified.',
+    tags: ['Particle systems', 'Interaction', 'Simulation'],
+    accent: '181, 108, 255'
+  },
+  {
+    id: 'cad-range',
+    code: 'CAD / RANGE',
+    title: 'CAD Mechanism Studies',
+    stage: 'Assets pending',
+    summary: 'A focused collection of mechanical studies including a planetary gearbox, bench vise, scissor lift and sheet-metal assemblies.',
+    tags: ['SOLIDWORKS', 'Mechanisms', 'Assemblies'],
+    accent: '92, 225, 230'
+  },
+  {
+    id: 'mission-control',
+    code: 'SOFTWARE / RANGE',
+    title: 'Mission Control Tracker',
+    stage: 'Evidence pending',
+    summary: 'A self-built web tracker reserved for a sanitized walkthrough of the interface and implemented tracking behavior.',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    accent: '102, 124, 255'
+  }
+];
+---
+<BaseLayout title="Izhaan Mubeen — Mechatronics, Embedded Systems & Robotics" description="Engineering portfolio of Izhaan Mubeen focused on mechanical design, embedded systems, control, robotics, simulation and engineering software.">
+  <Header />
+  <main id="main">
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb--one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb--two" aria-hidden="true"></div>
+      <div class="shell hero-inner">
+        <div class="hero-copy reveal">
+          <div class="hero-status"><span class="status-dot" aria-hidden="true"></span> UET LAHORE / MECHATRONICS & CONTROL</div>
+          <p class="hero-name"><span class="hero-name-text">Izhaan Mubeen</span></p>
+          <p class="hero-roleline"><strong>Mechatronics & Control Engineer</strong><span>Mechanical Design · Embedded Systems · Robotics & Simulation</span></p>
+          <h1 id="hero-title">I build systems where <span class="hero-accent-word" aria-label="mechanics"><span class="hero-accent-word__measure" aria-hidden="true">mechanics</span><span class="hero-accent-word__typing" aria-hidden="true"><span class="hero-accent-word__text" data-mechanics-typing></span><span class="hero-accent-word__caret"></span></span></span>, control and code meet.</h1>
+          <p class="hero-lede">From SOLIDWORKS assemblies and Simscape models to TM4C123 bare-metal firmware, I connect physical mechanisms, control logic and engineering software into systems that can be inspected, tested and improved.</p>
+
+          <div class="hero-proof-grid" aria-label="Engineering proof points">
+            {heroProof.map((item) => (
+              <article class="hero-proof">
+                <span class="hero-proof__code">{item.code}</span>
+                <strong>{item.value}</strong>
+                <div><b>{item.title}</b><small>{item.detail}</small></div>
+              </article>
+            ))}
+          </div>
+
+          <div class="hero-actions">
+            <a class="button button--primary" href="#projects">Explore engineering work <span aria-hidden="true">↘</span></a>
+            <a class="button button--secondary" href="#skills">View technical stack <span aria-hidden="true">↘</span></a>
+            <a class="button button--ghost" href="/cv/Izhaan-Mubeen-CV.pdf" download="Izhaan-Mubeen-CV.pdf">Download CV <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-telemetry" aria-label="Closed-loop engineering workflow">
+            <div><span>IN</span><strong>SENSE</strong></div>
+            <div><span>01</span><strong>COMPUTE</strong></div>
+            <div><span>02</span><strong>CONTROL</strong></div>
+            <div><span>03</span><strong>ACTUATE</strong></div>
+            <div><span>FB</span><strong>VALIDATE</strong></div>
+          </div>
+        </div>
+        <div class="hero-visual reveal reveal-delay-1">
+          <EngineeringMap />
+          <div class="hero-visual-caption">
+            <span>CLOSED-LOOP SYSTEM</span>
+            <p>Mechanism → Sensing → Firmware → Control</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-bottom shell" aria-hidden="true">
+        <span>LAHORE · PAKISTAN</span>
+        <span>SCROLL TO EXPLORE</span>
+      </div>
+    </section>
+
+    <section id="about" class="section section--raised about-section" aria-labelledby="about-title">
+      <span class="section-system-code" aria-hidden="true">SYS / IDENTITY / 01</span>
+      <div class="shell">
+        <div class="about-heading reveal">
+          <p class="section-index">01 / ABOUT</p>
+          <h2 id="about-title">I turn ideas into <span>connected engineering systems.</span></h2>
+        </div>
+
+        <div class="about-profile">
+          <figure class="about-portrait reveal">
+            <div class="about-portrait-frame">
+              <img src="/media/izhaan-mubeen-portrait.webp" alt="Izhaan Mubeen smiling outdoors with his arms folded" width="1200" height="1800" loading="lazy" decoding="async" />
+              <span class="about-photo-code">PROFILE / 01</span>
+            </div>
+            <figcaption><strong>Izhaan Mubeen</strong><span>Lahore, Pakistan</span></figcaption>
+          </figure>
+
+          <article class="about-copy reveal reveal-delay-1">
+            <p class="about-kicker">MECHANICAL · EMBEDDED · CONTROL</p>
+            <p class="about-intro">I’m drawn to the moment when a mechanism stops being only a model and becomes a working system. At UET Lahore, I’m developing that perspective across <strong>mechanical design, control, electronics and software.</strong></p>
+            <p class="about-secondary">My projects move from CAD and dynamic simulation to embedded hardware, computer vision and signal processing. I care about clear engineering decisions, honest testing and outcomes that can be demonstrated—not just described.</p>
+            <div class="about-focus" aria-label="Core engineering interests">
+              <span>Robotics</span>
+              <span>Mechanical Design</span>
+              <span>Embedded Systems</span>
+              <span>Computer Vision</span>
+            </div>
+            <div class="about-principle"><span>HOW I WORK</span><strong>Design clearly. Model honestly. Build deliberately.</strong></div>
+          </article>
+        </div>
+
+
+        <div class="about-stats reveal reveal-delay-2" data-counter-section aria-label="Portfolio statistics">
+          <div class="about-stats-shell">
+            <div class="about-stats-decor" aria-hidden="true">
+              <span class="about-stats-dmark"></span>
+              <span class="about-stats-line about-stats-line--top"></span>
+              <span class="about-stats-line about-stats-line--bottom"></span>
+            </div>
+            <div class="about-stats-header">
+              <p class="section-index">01A / SNAPSHOT</p>
+              <h3>Portfolio metrics that summarize how I build across engineering domains.</h3>
+            </div>
+            <div class="about-stats-grid">
+              {aboutStats.map((stat) => (
+                <article class="about-stat-card">
+                  <div class="about-stat-value-wrap"><strong class="about-stat-value" data-count-to={stat.value}>0</strong><span class="about-stat-plus">+</span></div>
+                  <p class="about-stat-label">{stat.label}</p>
+                  <p class="about-stat-note">{stat.note}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section education-section" aria-labelledby="education-title">
+      <span class="section-system-code" aria-hidden="true">SYS / FOUNDATION / 02</span>
+      <div class="shell education-shell">
+        <div class="section-heading split-heading education-heading reveal">
+          <div>
+            <p class="section-index">02 / EDUCATION</p>
+            <h2 id="education-title">Academic foundations built for <span>engineering systems.</span></h2>
+          </div>
+          <p>Academic progress across science, pre-engineering and multidisciplinary mechatronics—presented with the results that support each stage.</p>
+        </div>
+
+        <div class="education-timeline" aria-label="Academic timeline">
+          {education.map((item, index) => (
+            <article class:list={['education-entry', index % 2 === 0 ? 'education-entry--left' : 'education-entry--right', 'reveal', `reveal-delay-${Math.min(index, 2)}`]}>
+              <span class="education-node" aria-hidden="true"><i></i></span>
+              <div class="education-card">
+                <div class="education-card__meta">
+                  <span>{item.period}</span>
+                  <span>EDU / 0{index + 1}</span>
+                </div>
+                <p class="education-stage">{item.stage}</p>
+                <h3>{item.title}</h3>
+                {item.place && <p class="education-place">{item.place}</p>}
+                <p class="education-note">{item.note}</p>
+                {item.result && (
+                  <div class="education-result" aria-label={item.result.map((metric) => `${metric.label}: ${metric.value}`).join(', ')}>
+                    {item.result.map((metric) => <div><span>{metric.label}</span><strong>{metric.value}</strong></div>)}
+                  </div>
+                )}
+                <div class="education-subjects" aria-label={`${item.title} key subjects`}>
+                  <span>KEY SUBJECTS</span>
+                  <ul>{item.subjects.map((subject) => <li>{subject}</li>)}</ul>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills-section" aria-labelledby="skills-title">
+      <span class="section-system-code" aria-hidden="true">SYS / STACK / 03</span>
+      <div class="shell">
+        <div class="section-heading split-heading reveal">
+          <div><p class="section-index">03 / ENGINEERING STACK</p><h2 id="skills-title">A stack built from physical design up to system software.</h2></div>
+          <p>Capabilities are arranged by where they sit in a real mechatronic system: geometry, model, firmware, robot integration, perception and the software that connects them.</p>
+        </div>
+
+        <div class="skills-system">
+          <aside class="skills-architecture reveal" aria-label="Engineering stack architecture">
+            <div class="skills-architecture__header">
+              <span>SYSTEM ARCHITECTURE</span>
+              <small>PHYSICAL → DIGITAL</small>
+            </div>
+            <div class="skills-architecture__signal" aria-hidden="true"><i></i></div>
+            <div class="skills-architecture__layers">
+              {skills.map((skill) => (
+                <a class="skills-architecture__layer" href={`#skill-${skill.code.toLowerCase()}`} data-stack-layer={skill.layer}>
+                  <span>{skill.layer}</span><strong>{skill.code}</strong><small>{skill.title}</small>
+                </a>
+              ))}
+            </div>
+            <div class="skills-architecture__footer">
+              <span>INPUT</span><i></i><span>COMPUTE</span><i></i><span>OUTPUT</span>
+            </div>
+          </aside>
+
+          <div class="skills-stack">
+            {skills.map((skill, index) => (
+              <article id={`skill-${skill.code.toLowerCase()}`} class:list={['skill-card', 'skill-module', 'reveal', `reveal-delay-${Math.min(index, 2)}`]} data-stack-index={skill.layer}>
+                <div class="skill-module__rail" aria-hidden="true"><span>{skill.layer}</span><i></i></div>
+                <div class="skill-module__content">
+                  <div class="skill-topline"><span class="skill-symbol">{skill.code}</span><span class="skill-number">LAYER / {skill.layer}</span></div>
+                  <h3>{skill.title}</h3>
+                  <p class="skill-description">{skill.description}</p>
+                  <ul class="skill-tags" aria-label={`${skill.title} tools`}>
+                    {skill.tools.map((item) => <li>{item}</li>)}
+                  </ul>
+                  <a class="skill-evidence" href={skill.href}>Open supporting project <span aria-hidden="true">↗</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section section--projects section--raised" aria-labelledby="projects-title">
+      <span class="section-system-code" aria-hidden="true">SYS / CASE-STUDIES / 04</span>
+      <div class="shell">
+        <div class="section-heading split-heading reveal">
+          <div><p class="section-index">04 / FEATURED PROJECTS</p><h2 id="projects-title">Projects are presented as engineering case studies.</h2></div>
+          <p>The strongest work is surfaced visually first, while every project opens into a deeper case study covering context, contribution, engineering decisions, implementation and limitations.</p>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filter projects" data-filters>
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All work</button>
+          <button class="filter-button" type="button" data-filter="mechanical" aria-pressed="false">Mechanical</button>
+          <button class="filter-button" type="button" data-filter="robotics-simulation" aria-pressed="false">Robotics & Simulation</button>
+          <button class="filter-button" type="button" data-filter="embedded" aria-pressed="false">Embedded</button>
+          <button class="filter-button" type="button" data-filter="computer-vision" aria-pressed="false">Computer Vision</button>
+          <button class="filter-button" type="button" data-filter="signal-processing" aria-pressed="false">Signal Processing</button>
+          <button class="filter-button" type="button" data-filter="software" aria-pressed="false">Software</button>
+        </div>
+        <p class="filter-status sr-only" aria-live="polite" data-filter-status></p>
+
+        <div class="projects-grid" data-project-grid>
+          {orderedProjects.map((project, index) => <ProjectCard project={project} lead={index === 0} index={index} />)}
+        </div>
+        <noscript><p class="micro-note">All project cards remain visible without JavaScript.</p></noscript>
+
+        <div class="project-lab reveal" aria-labelledby="project-lab-title">
+          <div class="project-lab__heading">
+            <div>
+              <p class="section-index">PROJECT LAB / RANGE WORK</p>
+              <h3 id="project-lab-title">More work in the engineering queue.</h3>
+            </div>
+            <p>These projects are intentionally separated from the verified case studies while their repositories, renders and supporting evidence are prepared.</p>
+          </div>
+          <div class="lab-grid">
+            {labProjects.map((project) => (
+              <a class="lab-card" href={`/work/#${project.id}`} style={`--card-accent: ${project.accent}`}>
+                <div class="lab-card__meta"><span>{project.code}</span><span>{project.stage}</span></div>
+                <h4>{project.title}</h4>
+                <p>{project.summary}</p>
+                <ul class="tag-list" aria-label={`${project.title} topics`}>{project.tags.map((tag) => <li>{tag}</li>)}</ul>
+                <span class="lab-card__link">Open project lab <b aria-hidden="true">↗</b></span>
+              </a>
+            ))}
+          </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <span class="section-system-code" aria-hidden="true">SYS / OUTPUT / 05</span>
+      <div class="shell experience-grid">
+        <div>
+          <div class="section-heading reveal">
+            <p class="section-index">05 / EXPERIENCE</p>
+            <h2 id="experience-title">Hands-on work, shown through concrete outputs.</h2>
+            <p>A concise record of design, simulation and integration work, with the emphasis kept on what I actually produced and learned.</p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-meta"><span>2026</span><span>Lahore, Pakistan</span></div>
+              <h3>SolidWorks Design Intern</h3>
+              <p>Designed robotic and industrial assemblies, detailed CAD models and engineering drawings from concepts and physical measurements. Performed motion studies and structural simulations, and developed fabrication-oriented components and weldments for prototype development.</p>
+              <div class="timeline-output"><span>OUTPUTS</span><p>Assemblies · Drawings · Motion studies · Fabrication-oriented design</p></div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-meta"><span>2024 — PRESENT</span><span>Academic & personal work</span></div>
+              <h3>Robotics & Embedded Project Work</h3>
+              <p>Built a portfolio of projects spanning robotic mechanism design, differential-drive simulation, bare-metal embedded control and Python-based engineering workflows. The focus is on connecting disciplines rather than treating each tool in isolation.</p>
+              <div class="timeline-output"><span>FOCUS</span><p>CAD · Simulation · Embedded control · Hardware/software integration</p></div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="experience-side reveal reveal-delay-1">
+          <div class="side-label">CONTINUOUS LEARNING</div>
+          <h3>Coursework that supports the engineering stack.</h3>
+          <div class="credential-list">
+            {credentials.map((item, index) => (
+              <article>
+                <span>0{index + 1}</span>
+                <div><small>{item.issuer}</small><strong>{item.title}</strong></div>
+              </article>
+            ))}
+          </div>
+          <a class="text-link" href="/work/">View additional range work <span aria-hidden="true">↗</span></a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section" aria-labelledby="contact-title">
+      <span class="section-system-code" aria-hidden="true">SYS / INTERFACE / 06</span>
+      <div class="contact-grid-field" aria-hidden="true"></div>
+      <div class="contact-orbit contact-orbit--one" aria-hidden="true"></div>
+      <div class="contact-orbit contact-orbit--two" aria-hidden="true"></div>
+
+      <div class="shell contact-shell">
+        <header class="contact-heading reveal">
+          <p class="section-index">06 / CONTACT</p>
+          <div class="contact-heading-grid">
+            <h2 id="contact-title">Let’s build something <span>worth shipping.</span></h2>
+            <p>Have an internship, engineering collaboration or research idea in mind? Pick a route below and the message is already halfway started.</p>
+          </div>
+        </header>
+
+        <div class="contact-workspace">
+          <article class="contact-direct-card reveal" aria-label="Direct contact details">
+            <div class="contact-card-topline">
+              <span class="contact-live-dot" aria-hidden="true"></span>
+              <span>OPEN TO OPPORTUNITIES</span>
+              <small>LAHORE / PK</small>
+            </div>
+
+            <div class="contact-identity">
+              <span class="contact-label">ENGINEER / CONTACT NODE</span>
+              <h3>Izhaan Mubeen</h3>
+              <p>Mechatronics & Control Engineering</p>
+            </div>
+
+            <div class="contact-channel-list">
+              <div class="contact-channel contact-channel--email">
+                <span class="contact-channel-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation"><path d="M3.8 6.4h16.4v11.2H3.8zM4.6 7.2l7.4 5.6 7.4-5.6" /></svg>
+                </span>
+                <div>
+                  <small>EMAIL</small>
+                  <a href="mailto:izhaan.mubeen.me@gmail.com">izhaan.mubeen.me@gmail.com</a>
+                </div>
+                <button class="contact-copy-button" type="button" data-copy-email aria-label="Copy email address">COPY</button>
+              </div>
+
+              <a class="contact-channel" href="https://www.linkedin.com/in/izhaan-mubeen" target="_blank" rel="noreferrer">
+                <span class="contact-channel-icon contact-channel-icon--linkedin" aria-hidden="true">in</span>
+                <div><small>LINKEDIN</small><strong>/in/izhaan-mubeen</strong></div>
+                <span class="contact-channel-arrow" aria-hidden="true">↗</span>
+              </a>
+
+              <div class="contact-channel">
+                <span class="contact-channel-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" /><circle cx="12" cy="10" r="2.2" /></svg>
+                </span>
+                <div><small>LOCATION</small><strong>Lahore, Pakistan</strong></div>
+                <span class="contact-channel-code">31.52°N</span>
+              </div>
+            </div>
+
+            <p class="copy-status" aria-live="polite" data-copy-status></p>
+
+            <div class="contact-direct-footer">
+              <span>ROBOTICS</span><span>EMBEDDED</span><span>MECHANICAL DESIGN</span>
+            </div>
+          </article>
+
+          <article class="contact-panel contact-console reveal reveal-delay-1" aria-label="Interactive contact composer">
+            <div class="contact-console-bar">
+              <div class="contact-console-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span>COMMUNICATION CONSOLE</span>
+              <small>SECURE / READY</small>
+            </div>
+
+            <div class="contact-signal" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="contact-console-body">
+              <div class="contact-console-intro">
+                <p class="contact-label">SELECT A CONVERSATION</p>
+                <h3>What are we building?</h3>
+                <p>Choose the closest intent. I’ll prefill the email subject so you can get straight to the useful part.</p>
+              </div>
+
+              <div class="contact-intents" role="group" aria-label="Choose contact topic">
+                <button class="contact-intent is-active" type="button" data-contact-intent data-subject="Engineering collaboration" data-title="Engineering collaboration" data-copy="A project where mechanics, control, electronics or software need to work as one system." aria-pressed="true">
+                  <span>01</span><strong>Project / collaboration</strong><i aria-hidden="true">↗</i>
+                </button>
+                <button class="contact-intent" type="button" data-contact-intent data-subject="Internship opportunity" data-title="Internship opportunity" data-copy="An internship or engineering role where I can contribute, learn fast and build real systems." aria-pressed="false">
+                  <span>02</span><strong>Internship / opportunity</strong><i aria-hidden="true">↗</i>
+                </button>
+                <button class="contact-intent" type="button" data-contact-intent data-subject="Research and technical discussion" data-title="Research & technical discussion" data-copy="A research question, technical exchange or idea around robotics, simulation, control or embedded systems." aria-pressed="false">
+                  <span>03</span><strong>Research / technical</strong><i aria-hidden="true">↗</i>
+                </button>
+              </div>
+
+              <div class="contact-route-preview" aria-live="polite">
+                <div>
+                  <small>ACTIVE ROUTE</small>
+                  <strong data-contact-intent-title>Engineering collaboration</strong>
+                  <p data-contact-intent-copy>A project where mechanics, control, electronics or software need to work as one system.</p>
+                </div>
+                <span class="contact-route-node" aria-hidden="true"><i></i></span>
+              </div>
+
+              <div class="contact-console-actions">
+                <a class="contact-send" href="mailto:izhaan.mubeen.me@gmail.com?subject=Engineering%20collaboration" data-contact-mail-link>
+                  <span>Open email</span><strong aria-hidden="true">↗</strong>
+                </a>
+                <a class="contact-linkedin" href="https://www.linkedin.com/in/izhaan-mubeen" target="_blank" rel="noreferrer">Message on LinkedIn <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+
+            <div class="contact-console-footer">
+              <span>NO FORM BLACK HOLE</span>
+              <p>Opens your email client with a ready subject.</p>
+              <i aria-hidden="true">SYS / 06</i>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="footer-brand" href="#home"><span>IM</span> Izhaan Mubeen</a>
+      <span>Robotics · Embedded Systems · Mechanical Design</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script is:inline>
+    (() => {
+      const buttons = [...document.querySelectorAll('[data-filter]')];
+      const cards = [...document.querySelectorAll('[data-project]')];
+      const status = document.querySelector('[data-filter-status]');
+      const normalize = (value) => String(value || '').trim();
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = normalize(button.getAttribute('data-filter'));
+          let count = 0;
+          cards.forEach((card) => {
+            const keys = normalize(card.getAttribute('data-disciplines')).split(/\s+/);
+            const show = filter === 'all' || keys.includes(filter);
+            card.hidden = !show;
+            if (show) count += 1;
+          });
+          buttons.forEach((item) => {
+            const active = item === button;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+          if (status) status.textContent = `${count} project${count === 1 ? '' : 's'} shown.`;
+        });
+      });
+
+      const copyButton = document.querySelector('[data-copy-email]');
+      const copyStatus = document.querySelector('[data-copy-status]');
+      if (copyButton) {
+        copyButton.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText('izhaan.mubeen.me@gmail.com');
+            if (copyStatus) copyStatus.textContent = 'Email copied to clipboard.';
+          } catch {
+            if (copyStatus) copyStatus.textContent = 'Copy failed — select the email address above.';
+          }
+        });
+      }
+
+      const contactIntentButtons = [...document.querySelectorAll('[data-contact-intent]')];
+      const contactIntentTitle = document.querySelector('[data-contact-intent-title]');
+      const contactIntentCopy = document.querySelector('[data-contact-intent-copy]');
+      const contactMailLink = document.querySelector('[data-contact-mail-link]');
+
+      contactIntentButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          contactIntentButtons.forEach((item) => {
+            const active = item === button;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+
+          const title = button.getAttribute('data-title') || 'Engineering collaboration';
+          const copy = button.getAttribute('data-copy') || '';
+          const subject = button.getAttribute('data-subject') || title;
+          if (contactIntentTitle) contactIntentTitle.textContent = title;
+          if (contactIntentCopy) contactIntentCopy.textContent = copy;
+          if (contactMailLink) contactMailLink.setAttribute('href', `mailto:izhaan.mubeen.me@gmail.com?subject=${encodeURIComponent(subject)}`);
+        });
+      });
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const mechanicsTyping = document.querySelector('[data-mechanics-typing]');
+      if (mechanicsTyping) {
+        const mechanicsWord = 'mechanics';
+        mechanicsTyping.textContent = '';
+
+        if (reduceMotion) {
+          mechanicsTyping.textContent = mechanicsWord;
+        } else {
+          let mechanicsIndex = 0;
+          const typeMechanicsCharacter = () => {
+            if (mechanicsIndex >= mechanicsWord.length) return;
+
+            const character = document.createElement('span');
+            character.className = 'hero-accent-word__char';
+            character.textContent = mechanicsWord.charAt(mechanicsIndex);
+            mechanicsTyping.appendChild(character);
+            mechanicsIndex += 1;
+
+            const nextDelay = mechanicsIndex === mechanicsWord.length ? 0 : 150 + Math.round(Math.random() * 35);
+            if (nextDelay) window.setTimeout(typeMechanicsCharacter, nextDelay);
+          };
+
+          window.setTimeout(typeMechanicsCharacter, 520);
+        }
+      }
+
+      const counterSections = [...document.querySelectorAll('[data-counter-section]')];
+      const animateCounter = (element) => {
+        if (!element || element.dataset.counted === 'true') return;
+        const target = Number(element.getAttribute('data-count-to') || '0');
+        if (reduceMotion) {
+          element.textContent = String(target);
+          element.dataset.counted = 'true';
+          return;
+        }
+
+        const duration = 1250;
+        const start = performance.now();
+        element.dataset.counted = 'true';
+
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(target * eased);
+          element.textContent = String(current);
+          if (progress < 1) {
+            window.requestAnimationFrame(tick);
+          } else {
+            element.textContent = String(target);
+          }
+        };
+
+        window.requestAnimationFrame(tick);
+      };
+
+      if ('IntersectionObserver' in window) {
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('[data-count-to]').forEach((counter) => animateCounter(counter));
+            counterObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.28, rootMargin: '0px 0px -8% 0px' });
+
+        counterSections.forEach((section) => counterObserver.observe(section));
+      } else {
+        counterSections.forEach((section) => section.querySelectorAll('[data-count-to]').forEach((counter) => animateCounter(counter)));
+      }
+
+      const stackModules = [...document.querySelectorAll('[data-stack-index]')];
+      const stackLayers = [...document.querySelectorAll('[data-stack-layer]')];
+      const setStackActive = (index, active) => {
+        stackLayers.forEach((layer) => {
+          if (layer.getAttribute('data-stack-layer') === index) layer.classList.toggle('is-active', active);
+        });
+      };
+      stackModules.forEach((module) => {
+        const index = module.getAttribute('data-stack-index');
+        module.addEventListener('pointerenter', () => setStackActive(index, true));
+        module.addEventListener('pointerleave', () => setStackActive(index, false));
+        module.addEventListener('focusin', () => setStackActive(index, true));
+        module.addEventListener('focusout', () => setStackActive(index, false));
+      });
+
+      if (!reduceMotion && 'IntersectionObserver' in window) {
+        const revealItems = [...document.querySelectorAll('.reveal')];
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          });
+        }, {
+          // Start transitions before content actually reaches the viewport.
+          // This removes the empty-background gap during fast wheel/trackpad scrolling.
+          threshold: 0.01,
+          rootMargin: '8% 0px 38% 0px'
+        });
+
+        revealItems.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 1.12) item.classList.add('is-visible');
+          else revealObserver.observe(item);
+        });
+      } else {
+        document.querySelectorAll('.reveal').forEach((item) => item.classList.add('is-visible'));
+      }
+
+      if ('IntersectionObserver' in window) {
+        const navLinks = [...document.querySelectorAll('[data-nav-link]')];
+        const sections = ['about', 'education', 'skills', 'projects', 'experience', 'contact']
+          .map((id) => document.getElementById(id))
+          .filter(Boolean);
+        const sectionObserver = new IntersectionObserver((entries) => {
+          const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          navLinks.forEach((link) => {
+            const active = link.getAttribute('href')?.endsWith(`#${visible.target.id}`);
+            link.classList.toggle('is-current', Boolean(active));
+          });
+        }, { rootMargin: '-25% 0px -60% 0px', threshold: [0.01, 0.2, 0.5] });
+        sections.forEach((section) => sectionObserver.observe(section));
+      }
+    })();
+  </script>
+</BaseLayout>
